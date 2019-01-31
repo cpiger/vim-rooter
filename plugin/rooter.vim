@@ -14,6 +14,10 @@ if exists('+autochdir') && &autochdir && !exists('g:rooter_manual_only')
   set noautochdir
 endif
 
+if !exists('g:rooter_load_gtags')
+  let g:rooter_load_gtags = 0
+endif
+
 if !exists('g:rooter_use_lcd')
   let g:rooter_use_lcd = 0
 endif
@@ -158,6 +162,9 @@ function! s:ChangeToRootDirectory()
     endif
   else
     call s:ChangeDirectory(root_dir)
+  endif
+  if  g:rooter_load_gtags == 1
+    silent exec 'GtagsCscope'
   endif
 endfunction
 
